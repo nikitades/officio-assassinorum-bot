@@ -5,6 +5,8 @@ import (
 	"OfficioAssassinorumBot/internal/conf"
 	"OfficioAssassinorumBot/internal/handlers"
 	"OfficioAssassinorumBot/internal/handlers/assassinateHandler"
+	"fmt"
+	"net/http"
 )
 
 func main() {
@@ -14,6 +16,12 @@ func main() {
 		conf.CurrentConfig.Mode,
 		conf.CurrentConfig.Port,
 	)
+
+	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Ok")
+	})
+
+	go http.ListenAndServe(fmt.Sprintf("0.0.0.0:%v", conf.CurrentConfig.Port), nil)
 
 	for input := range msgChan {
 		if input.Cmd == nil {

@@ -1,9 +1,7 @@
 package bot
 
 import (
-	"fmt"
 	"log"
-	"net/http"
 	"strings"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -34,8 +32,6 @@ func Start(token, botName, mode string, port int) chan Input {
 		log.Printf("Running in longpolling mode")
 	case "webhook":
 		updatesChan = Bot.ListenForWebhook("/api/webhook")
-
-		go http.ListenAndServe(fmt.Sprintf("0.0.0.0:%v", port), nil)
 
 		log.Printf("Listening the route %v on port %v", "/api/webhook", port)
 	default:
