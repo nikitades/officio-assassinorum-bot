@@ -1,0 +1,48 @@
+name: Master merge
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Run tests
+        run: echo "Merhaba! No tests yet"
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - run: |
+          docker buildx install
+          docker buildx build \
+            --platform linux/amd64 \
+            --load \
+            --tag nikitades/oabot \
+            --file ./build/Dockerfile \
+            .
+      - name: Restart services
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /var/www/oabot
+            docker stack rm oabot
+            docker-compose -f docker-compose.yml pull
+            sleep 5
+            docker stack deploy --compose-file docker-compose.yml oabot
+
