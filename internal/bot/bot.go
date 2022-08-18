@@ -1,6 +1,7 @@
 package bot
 
 import (
+	"fmt"
 	"log"
 	"strings"
 
@@ -58,6 +59,7 @@ func Start(token, botName, mode string, port int) chan Input {
 }
 
 func checkIfReactibleCommand(botName string, update tgbotapi.Update) (bool, *string) {
+	log.Println(fmt.Printf("Input message: %v", update.Message.Text))
 	cmdRawTrimmed := strings.Split(update.Message.Text, " ")[0]
 
 	if !strings.HasPrefix(cmdRawTrimmed, "/") {
