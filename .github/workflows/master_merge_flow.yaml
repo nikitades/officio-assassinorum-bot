@@ -29,7 +29,6 @@ jobs:
           docker buildx install
           docker buildx build \
             --platform linux/amd64 \
-            --load \
             --tag nikitades/oabot \
             --file ./build/Dockerfile \
             --push \
