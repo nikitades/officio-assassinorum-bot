@@ -21,7 +21,7 @@ func main() {
 		fmt.Fprintf(w, "Ok")
 	})
 
-	go http.ListenAndServe(fmt.Sprintf("0.0.0.0:%v", conf.CurrentConfig.Port), nil)
+	go http.ListenAndServe(fmt.Sprintf(":%v", conf.CurrentConfig.Port), nil)
 
 	for input := range msgChan {
 		if input.Cmd == nil {
