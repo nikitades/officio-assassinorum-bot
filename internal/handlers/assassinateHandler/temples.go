@@ -2,6 +2,7 @@ package assassinateHandler
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 )
 
@@ -14,7 +15,7 @@ type temple struct {
 func (t *temple) doYouConfirmTheTarget() bool {
 	r := rand.Float32()
 
-	fmt.Println(fmt.Sprintf("Temple %v has the rand %v against the chance %v", t.name, r, 1-t.chance))
+	log.Println(fmt.Sprintf("Temple %v has the rand %v against the chance %v", t.name, r, 1-t.chance))
 
 	return r > 1-t.chance
 }
