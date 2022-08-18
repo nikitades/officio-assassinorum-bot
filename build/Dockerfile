@@ -5,4 +5,4 @@ COPY ./go.mod ./go.sum /app/
 RUN go mod download
 COPY . /app
 
-CMD cd cmd/webhook && run main.go
+CMD cd cmd/webhook && go run main.go
