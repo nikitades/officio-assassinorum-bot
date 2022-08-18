@@ -5,4 +5,6 @@ COPY ./go.mod ./go.sum /app/
 RUN go mod download
 COPY . /app
 
+EXPOSE 8080
+
 CMD cd cmd/webhook && go run main.go
