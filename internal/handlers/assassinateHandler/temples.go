@@ -1,6 +1,9 @@
 package assassinateHandler
 
-import "math/rand"
+import (
+	"fmt"
+	"math/rand"
+)
 
 type temple struct {
 	name   string
@@ -9,7 +12,11 @@ type temple struct {
 }
 
 func (t *temple) doYouConfirmTheTarget() bool {
-	return rand.Float32() > 1-t.chance
+	r := rand.Float32()
+
+	fmt.Println(fmt.Sprintf("Temple %v has the rand %v against the chance %v", t.name, r, 1-t.chance))
+
+	return r > 1-t.chance
 }
 
 var temples = []temple{
