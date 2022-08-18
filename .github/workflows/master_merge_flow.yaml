@@ -44,6 +44,6 @@ jobs:
             cd /var/www/oabot
             docker stack rm oabot
             docker-compose -f docker-compose.yml pull
-            sleep 10
+            sleep 15
             docker stack deploy --compose-file docker-compose.yml oabot
 
