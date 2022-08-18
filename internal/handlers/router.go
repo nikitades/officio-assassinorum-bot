@@ -1,12 +1,14 @@
 package handlers
 
-import tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+import (
+	"OfficioAssassinorumBot/internal/handlers/findDead"
 
-func Route(cmd string, update tgbotapi.Update) *string {
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+)
+
+func Route(cmd string, update tgbotapi.Update) {
 	switch cmd {
 	case "/dead":
-		return Dead()
-	default:
-		return nil
+		findDead.Dead(update)
 	}
 }
