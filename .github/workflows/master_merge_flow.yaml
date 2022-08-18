@@ -14,6 +14,7 @@ jobs:
         run: echo "Merhaba! No tests yet"
 
   build:
+    needs: test
     name: Build
     runs-on: ubuntu-latest
     timeout-minutes: 10
