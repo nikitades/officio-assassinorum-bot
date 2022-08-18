@@ -32,6 +32,7 @@ jobs:
             --load \
             --tag nikitades/oabot \
             --file ./build/Dockerfile \
+            --push \
             .
       - name: Restart services
         uses: appleboy/ssh-action@master
