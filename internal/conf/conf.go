@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"math/rand"
+	"strings"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -33,4 +34,6 @@ func init() {
 	if err := envconfig.Process(ctx, CurrentConfig); err != nil {
 		log.Fatal(err)
 	}
+
+	CurrentConfig.BotName = strings.ReplaceAll(CurrentConfig.BotName, "@", "")
 }

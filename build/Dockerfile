@@ -7,4 +7,4 @@ COPY . /app
 
 EXPOSE 8080
 
-CMD cd cmd/webhook && go run main.go
+CMD cd cmd/webhookListener && go run main.go

@@ -4,7 +4,6 @@ import (
 	"OfficioAssassinorumBot/internal/bot"
 	"OfficioAssassinorumBot/internal/conf"
 	"OfficioAssassinorumBot/internal/handlers"
-	"OfficioAssassinorumBot/internal/handlers/assassinateHandler"
 	"fmt"
 	"net/http"
 )
@@ -24,11 +23,6 @@ func main() {
 	go http.ListenAndServe(fmt.Sprintf(":%v", conf.CurrentConfig.Port), nil)
 
 	for input := range msgChan {
-		if input.Cmd == nil {
-			assassinateHandler.Assassinate(input.Update)
-			continue
-		}
-
-		handlers.Route(*input.Cmd, input.Update)
+		handlers.Route(input.Cmd, input.Update)
 	}
 }

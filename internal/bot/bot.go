@@ -47,11 +47,11 @@ func Start(token, botName, mode string, port int) chan Input {
 			var isReactibleCommand bool
 
 			if isReactibleCommand, cmd = checkIfReactibleCommand(botName, update); !isReactibleCommand {
-				cmdChan <- Input{Cmd: nil, Update: update}
+				cmdChan <- Input{Cmd: "assassinate", Update: update}
 				continue
 			}
 
-			cmdChan <- Input{Cmd: cmd, Update: update}
+			cmdChan <- Input{Cmd: *cmd, Update: update}
 		}
 	}()
 
@@ -60,26 +60,19 @@ func Start(token, botName, mode string, port int) chan Input {
 
 func checkIfReactibleCommand(botName string, update tgbotapi.Update) (bool, *string) {
 	log.Println(fmt.Printf("Input message: %v", update.Message.Text))
-	cmdRawTrimmed := strings.Split(update.Message.Text, " ")[0]
 
-	if !strings.HasPrefix(cmdRawTrimmed, "/") {
+	cmdRaw := update.Message.CommandWithAt()
+	cmd := update.Message.Command()
+
+	if target := strings.ReplaceAll(cmdRaw, cmd, ""); target != "" && target != "@"+botName {
 		return false, nil
 	}
 
-	if cmdRawTrimmed == "/" {
-		return false, nil
+	for _, allowedCmd := range []string{"kill", "dead"} {
+		if cmd == allowedCmd {
+			return true, &cmd
+		}
 	}
 
-	commandParts := strings.Split(cmdRawTrimmed, "@")
-
-	if len(commandParts) > 2 {
-		return false, nil
-	}
-
-	if len(commandParts) == 2 && commandParts[1] != botName {
-		return false, nil
-	}
-
-	//the last part of the command that can theoretically contain some input is deliberately omitted here for the sake of speed of development
-	return true, &strings.Split(cmdRawTrimmed, "@")[0]
+	return false, nil
 }
