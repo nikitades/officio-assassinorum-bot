@@ -25,9 +25,9 @@ func (t *Temple) malcadorAsksToConfirmTheFollowingTarget() bool {
 
 	chance := t.Chance * 10
 
-	log.Printf("Temple %v has the rand %v against the special chance %v", t.Name, r, chance)
+	log.Printf("Temple %v has the rand %v against the special chance %v", t.Name, r, 1-chance)
 
-	return r > chance
+	return r > 1-chance
 }
 
 var temples = []Temple{
