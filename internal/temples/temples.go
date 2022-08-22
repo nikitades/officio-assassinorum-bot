@@ -15,7 +15,7 @@ type Temple struct {
 func (t *Temple) doYouConfirmTheTarget() bool {
 	r := rand.Float32()
 
-	log.Printf("Temple %v has the rand %v against the chance %v", t.Name, r, 1-t.Chance)
+	log.Printf("Temple %v has the rand %v against the chance %v\n", t.Name, r, 1-t.Chance)
 
 	return r > 1-t.Chance
 }
@@ -25,7 +25,7 @@ func (t *Temple) malcadorAsksToConfirmTheFollowingTarget() bool {
 
 	chance := t.Chance * 10
 
-	log.Printf("Temple %v has the rand %v against the special chance %v", t.Name, r, 1-chance)
+	log.Printf("Temple %v has the rand %v against the special chance %v\n", t.Name, r, 1-chance)
 
 	return r > 1-chance
 }

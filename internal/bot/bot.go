@@ -30,11 +30,11 @@ func Start(token, botName, mode string, port int) chan Input {
 
 		updatesChan = Bot.GetUpdatesChan(u)
 
-		log.Printf("Running in longpolling mode")
+		log.Printf("Running in longpolling mode\n")
 	case "webhook":
 		updatesChan = Bot.ListenForWebhook("/api/webhook")
 
-		log.Printf("Listening the route %v on port %v", "/api/webhook", port)
+		log.Printf("Listening the route %v on port %v\n", "/api/webhook", port)
 	default:
 		log.Fatal("unknown launch mode")
 	}
@@ -59,7 +59,7 @@ func Start(token, botName, mode string, port int) chan Input {
 }
 
 func checkIfReactibleCommand(botName string, update tgbotapi.Update) (bool, *string) {
-	log.Println(fmt.Printf("Input message: %v", update.Message.Text))
+	log.Printf("Input message: %v\n", update.Message.Text)
 
 	cmdRaw := update.Message.CommandWithAt()
 	cmd := update.Message.Command()
