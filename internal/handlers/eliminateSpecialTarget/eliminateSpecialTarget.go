@@ -29,6 +29,8 @@ func Assassinate(update tgbotapi.Update) {
 		rejectionMsg.ReplyToMessageID = update.Message.MessageID
 		rejectionMsg.ParseMode = "markdown"
 		bot.Bot.Send(rejectionMsg)
+
+		return
 	}
 
 	message, _ := doAssassinate(int(update.Message.Chat.ID), int(reply.From.ID), reply.From.UserName, *temple)
